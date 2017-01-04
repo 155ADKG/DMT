@@ -3,6 +3,8 @@
 #include <QtGui>
 #include "edge.h"
 #include "sortbyxasc.h"
+#include "triangle.h"
+#include "qpoint3d.h"
 
 class Algorithms
 {
@@ -22,6 +24,10 @@ public:
     static std::vector<Edge> createContours(const std::vector<Edge> &dt, const double z_min, const double z_max, const double dz);
 
     static QPoint contourPoint(const QPoint &p1, const QPoint &p2, double z);
+
+    static std::vector<Triangle> convertDT(std::vector<Edge> &dt);
+
+
 };
 
 #endif // ALGORITHMS_H

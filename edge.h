@@ -1,6 +1,7 @@
 #ifndef EDGE_H
 #define EDGE_H
 #include <QtGui>
+#include "qpoint3d.h"
 
 
 class Edge
@@ -14,7 +15,7 @@ public:
     QPoint end;
 
 
-    Edge(const QPoint &s, const QPoint &e);
+    Edge(const QPoint3D &s, const QPoint3D &e);
 
     void switchOrientation();
 

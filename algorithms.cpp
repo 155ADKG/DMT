@@ -4,6 +4,24 @@ Algorithms::Algorithms()
 {
 }
 
+std::vector<Triangle> Algorithms::convertDT(std::vector<Edge> &dt)
+{
+    std::vector<Triangle> dtt;
+
+    for (int i=0;i<dt.size();i+=3)
+    {
+        QPoint3D p1 = dt[i].start;
+        QPoint3D p2 = dt[i].end;
+        QPoint3D p3 = dt[i+1].end;
+
+        Triangle t(p1,p2,p3,0,0);
+
+        dtt.push_back(t);
+    }
+
+    return dtt;
+}
+
 double Algorithms::getCircleRadius(QPoint &p1, QPoint &p2, QPoint &p3)
 {
     const double x1 = p1.x();

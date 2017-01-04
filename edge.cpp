@@ -1,6 +1,6 @@
 #include "edge.h"
 
-Edge::Edge(const QPoint &s, const QPoint &e)
+Edge::Edge(const QPoint3D &s, const QPoint3D &e)
 {
     start = s;
     end = e;
@@ -8,7 +8,7 @@ Edge::Edge(const QPoint &s, const QPoint &e)
 
 void Edge::switchOrientation()
 {
-   QPoint p = start;
+   QPoint3D p = start;
    start = end;
    end = p;
 }
