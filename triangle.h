@@ -14,7 +14,7 @@ private:
     double exposition;
 
 public:
-    Triangle(const QPoint3D &p1_,const QPoint3D &p2_,const QPoint3D &p3_, const double slope_, const double exposition_)
+    Triangle(const QPoint3D &p1_,const QPoint3D &p2_,const QPoint3D &p3_, const double slope_, const double exposition_):p1(p1_),p2(p2_),p3(p3_)
     {
         p1 = p1_;
         p2 = p2_;

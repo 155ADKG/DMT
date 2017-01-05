@@ -5,6 +5,7 @@
 #include <vector>
 #include "edge.h"
 #include "triangle.h"
+#include <QtGui>
 
 class Draw : public QWidget
 {

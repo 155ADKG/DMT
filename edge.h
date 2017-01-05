@@ -11,11 +11,15 @@ private:
 
 public:
 
-    QPoint start;
-    QPoint end;
+    QPoint3D start;
+    QPoint3D end;
 
 
-    Edge(const QPoint3D &s, const QPoint3D &e);
+    Edge(const QPoint3D &s, const QPoint3D &e): start(s), end(e)
+    {
+        start = s;
+        end = e;
+    }
 
     void switchOrientation();
 

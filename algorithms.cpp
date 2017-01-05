@@ -22,7 +22,7 @@ std::vector<Triangle> Algorithms::convertDT(std::vector<Edge> &dt)
     return dtt;
 }
 
-double Algorithms::getCircleRadius(QPoint &p1, QPoint &p2, QPoint &p3)
+double Algorithms::getCircleRadius(QPoint3D &p1, QPoint3D &p2, QPoint3D &p3)
 {
     const double x1 = p1.x();
     const double x2 = p2.x();
@@ -51,7 +51,7 @@ double Algorithms::getCircleRadius(QPoint &p1, QPoint &p2, QPoint &p3)
     return r;
 }
 
-int Algorithms::getDelauyPoint(Edge &e, std::vector<QPoint> points)
+int Algorithms::getDelauyPoint(Edge &e, std::vector<QPoint3D> points)
 {
     double r_max = 0;
     int i_max = -1;
@@ -70,7 +70,7 @@ int Algorithms::getDelauyPoint(Edge &e, std::vector<QPoint> points)
     }
 }
 
-std::vector<Edge> Algorithms::createDT(std::vector<QPoint> &points)
+std::vector<Edge> Algorithms::createDT(std::vector<QPoint3D> &points)
 {
 
     //Sort points by x
@@ -78,9 +78,9 @@ std::vector<Edge> Algorithms::createDT(std::vector<QPoint> &points)
     std::sort(points.begin(),points.end(),sortByXAsc());
 
     //Pivot and its nearest point
-    QPoint q = points[0];
+    QPoint3D q = points[0];
     int ind = getNearestPoint(q,points);
-    QPoint p = points[ind];
+    QPoint3D p = points[ind];
 
     Edge e(q,p);
 
@@ -90,7 +90,7 @@ std::vector<Edge> Algorithms::createDT(std::vector<QPoint> &points)
     {
         e.switchOrientation();
         d_ind = getDelauyPoint(e,points);
-        QPoint temp=q;
+        QPoint3D temp=q;
         q=p;
         p=temp;
     }
@@ -113,7 +113,8 @@ std::vector<Edge> Algorithms::createDT(std::vector<QPoint> &points)
     {
 
         //Remove the first edge
-        Edge e = ael.pop_front();
+        Edge e = ael.front();
+        ael.pop_front();
 
         //Switch orientation
         e.switchOrientation();
@@ -164,19 +165,19 @@ std::vector<Edge> Algorithms::createContours(const std::vector<Edge> &dt, const 
     std::vector<Edge> contours;
 
     //Process a triplet of edges
-    for (i=0;i<dt.size()-2;i+=3)
+    for (int i=0;i<dt.size()-2;i+=3)
     {
 
         //Get triangle of vertices
-        QPoint p1 = dt[i].start;
-        QPoint p2 = dt[i].end;
-        QPoint p3 = dt[i+1].end;
+        QPoint3D p1 = dt[i].start;
+        QPoint3D p2 = dt[i].end;
+        QPoint3D p3 = dt[i+1].end;
 
         for (double z = z_min;z<=z_max;z+=dz)
         {
-            double dz1 = z - p1.z();
-            double dz2 = z - p2.z();
-            double dz3 = z - p3.z();
+            double dz1 = z - p1.getZ();
+            double dz2 = z - p2.getZ();
+            double dz3 = z - p3.getZ();
 
             bool b12 = (abs(dz1) < eps) && (abs(dz2) < eps);
             bool b23 = (abs(dz2) < eps) && (abs(dz3) < eps);
@@ -200,16 +201,16 @@ std::vector<Edge> Algorithms::createContours(const std::vector<Edge> &dt, const 
     }
 }
 
-QPoint Algorithms::contourPoint(const QPoint &p1, const QPoint &p2, double z)
+QPoint3D Algorithms::contourPoint(QPoint3D &p1, QPoint3D &p2, double z)
 {
-    double xa = (((p2.x() - p1.x())/(p2.z() - p1.z()))*(z - p1.z()))+p1.x();
-    double ya = (((p2.y() - p1.y())/(p2.z() - p1.z()))*(z - p1.z()))+p1.y();
+    double xa = (((p2.x() - p1.x())/(p2.getZ() - p1.getZ()))*(z - p1.getZ()))+p1.x();
+    double ya = (((p2.y() - p1.y())/(p2.getZ() - p1.getZ()))*(z - p1.getZ()))+p1.y();
 
-    QPoint p(xa,ya);
+    QPoint3D p(xa,ya,0);
     return p;
 }
 
-int Algorithms::getNearestPoint(const QPoint &p, std::vector<QPoint> points)
+int Algorithms::getNearestPoint(const QPoint3D &p, std::vector<QPoint3D> points)
 {
     int i_min = -1;
     double d_min = 9e10;
@@ -231,7 +232,7 @@ int Algorithms::getNearestPoint(const QPoint &p, std::vector<QPoint> points)
     return i_min;
 }
 
-int Algorithms::getPointLinePosition(const QPointF &p, const QPointF &p1, const QPointF &p2)
+int Algorithms::getPointLinePosition(const QPoint3D &p, const QPoint3D &p1, const QPoint3D &p2)
 {
     //Vector u = p2-p1 and v = p2-p
     const double ux = p2.x() - p1.x();

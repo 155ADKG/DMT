@@ -7,10 +7,10 @@ Draw::Draw(QWidget *parent) :
 
 void Draw::paintEvent(QPaintEvent *e)
 {
-    QPainter painter;
-    painter.begin();
+    QPainter painter(this);
+    painter.begin(this);
 
-    painter.draw;
+
     for (int i=0;i<dtt.size();i++)
     {
         int x1 = dtt[i].getP1().getX();
@@ -45,7 +45,7 @@ void Draw::paintEvent(QPaintEvent *e)
 
         painter.setPen(pen);
 
-        QVector points;
+        QVector<QPoint> points;
         points.push_back(QPoint(x1,y1));
         points.push_back(QPoint(x2,y2));
         points.push_back(QPoint(x3,y3));

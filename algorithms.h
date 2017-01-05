@@ -11,19 +11,19 @@ class Algorithms
 public:
     Algorithms();
 
-    static double getCircleRadius(QPoint &p1, QPoint &p2, QPoint &p3);
+    static double getCircleRadius(QPoint3D &p1, QPoint3D &p2, QPoint3D &p3);
 
-    static int getDelauyPoint(Edge &e, std::vector<QPoint> points);
+    static int getDelauyPoint(Edge &e, std::vector<QPoint3D> points);
 
-    static int getPointLinePosition(const QPointF &p, const QPointF &p1, const QPointF &p2);
+    static int getPointLinePosition(const QPoint3D &p, const QPoint3D &p1, const QPoint3D &p2);
 
-    static int getNearestPoint(const QPoint &p, std::vector<QPoint> points);
+    static int getNearestPoint(const QPoint3D &p, std::vector<QPoint3D> points);
 
-    static std::vector<Edge> createDT(std::vector<QPoint> &points);
+    static std::vector<Edge> createDT(std::vector<QPoint3D> &points);
 
     static std::vector<Edge> createContours(const std::vector<Edge> &dt, const double z_min, const double z_max, const double dz);
 
-    static QPoint contourPoint(const QPoint &p1, const QPoint &p2, double z);
+    static QPoint3D contourPoint(QPoint3D &p1, QPoint3D &p2, double z);
 
     static std::vector<Triangle> convertDT(std::vector<Edge> &dt);
 

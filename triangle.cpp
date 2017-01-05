@@ -17,7 +17,7 @@ void Triangle::analyzeSlope()
     slope = acos(nz/(sqrt(nx*nx+ny*ny+nz*nz))) * (180/3.1415);
 }
 
-void analyzeExposition()
+void Triangle::analyzeExposition()
 {
     double ux = p2.getX() - p1.getX();
     double uy = p2.getY() - p1.getY();
