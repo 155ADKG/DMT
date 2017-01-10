@@ -14,6 +14,7 @@ void Triangle::analyzeSlope()
     double ny = uz*vx - vz*ux;
     double nz = ux*vy - vx*uy;
 
+//    slope = 180 - acos(nz/(sqrt(nx*nx+ny*ny+nz*nz))) * (180/3.1415);
     slope = acos(nz/(sqrt(nx*nx+ny*ny+nz*nz))) * (180/3.1415);
 }
 

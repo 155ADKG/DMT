@@ -201,14 +201,13 @@ std::vector<Edge> Algorithms::createDT(std::vector<QPoint3D> &points)
     }
 /*
     // TESTING
-    Edge et1(QPoint3D(0,0,0),QPoint3D(0,300,0));
-    Edge et2(QPoint3D(0,300,0),QPoint3D(300,300,0));
-    Edge et3(QPoint3D(300,300,0),QPoint3D(300,0,0));
-    Edge et4(QPoint3D(300,0,0),QPoint3D(0,0,0));
-    Edge et5(QPoint3D(0,0,0),QPoint3D(150,150,100));
-    Edge et6(QPoint3D(150,150,100),QPoint3D(300,300,0));
-    Edge et7(QPoint3D(300,0,0),QPoint3D(150,150,100));
-    Edge et8(QPoint3D(150,150,100),QPoint3D(0,300,0));
+    Edge et1(QPoint3D(0,0,0),QPoint3D(0,100,0));
+    Edge et2(QPoint3D(0,100,0),QPoint3D(100,100,10));
+    Edge et3(QPoint3D(100,100,10),QPoint3D(0,0,0));
+
+    Edge et4(QPoint3D(200,200,0),QPoint3D(200,300,150));
+    Edge et5(QPoint3D(200,300,150),QPoint3D(300,300,0));
+    Edge et6(QPoint3D(300,300,0),QPoint3D(200,200,0));
 
     std::vector<Edge> dt;
     dt.clear();
@@ -218,12 +217,7 @@ std::vector<Edge> Algorithms::createDT(std::vector<QPoint3D> &points)
     dt.push_back(et4);
     dt.push_back(et5);
     dt.push_back(et6);
-    dt.push_back(et7);
-    dt.push_back(et8);
-
-
-    */
-
+*/
 
     return dt;
 }
@@ -233,6 +227,7 @@ std::vector<Edge> Algorithms::createContours(const std::vector<Edge> &dt, const 
     double eps = 1e-03;
 
     std::vector<Edge> contours;
+    contours.clear();
 
     //Process a triplet of edges
     for (int i=0;i<dt.size()-2;i+=3)

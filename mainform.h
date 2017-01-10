@@ -18,6 +18,8 @@ private:
     std::vector<Edge> dt;
     std::vector<Triangle> dtt;
     std::vector<Edge> contours;
+    std::vector<double> draw_slope;
+    std::vector<QColor> draw_expos;
 
 public:
     explicit MainForm(QWidget *parent = 0);
@@ -27,6 +29,10 @@ private slots:
     void on_pushLoad_clicked();
 
     void on_pushGenCont_clicked();
+
+    void on_pushSlope_clicked();
+
+    void on_pushAspect_clicked();
 
 private:
     Ui::MainForm *ui;

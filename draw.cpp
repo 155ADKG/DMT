@@ -39,15 +39,17 @@ void Draw::paintEvent(QPaintEvent *e)
         int x2 = contours[i].end.getX();
         int y2 = contours[i].end.getY();
 
-        qDebug() << x1;
+        qDebug() << contours[i].start;
+        qDebug() << contours[i].end;
+        qDebug() << x1 << ' - ' << y1;
+        qDebug() << x2 << ' - ' << y2;
 
         painter.drawLine(QPoint(x1, y1), QPoint(x2, y2));
     }
 
     // Draw slope
-    for (int i=0;i<dtt.size();i++)
+    for (int i=0;i<draw_slope.size();i++)
     {
-
         int x1 = dtt[i].getP1().getX();
         int y1 = dtt[i].getP1().getY();
         int x2 = dtt[i].getP2().getX();
@@ -55,13 +57,7 @@ void Draw::paintEvent(QPaintEvent *e)
         int x3 = dtt[i].getP3().getX();
         int y3 = dtt[i].getP3().getY();
 
-
-        double gray = abs(dtt[i].getSlope() / 180);
-
-        QPen pen;
-        pen.setBrush(QColor(gray,gray,gray));
-
-        painter.setPen(pen);
+        painter.setBrush(QColor(draw_slope[i],draw_slope[i],draw_slope[i]));
 
         QVector<QPoint> points;
         points.push_back(QPoint(x1,y1));
@@ -70,7 +66,27 @@ void Draw::paintEvent(QPaintEvent *e)
 
         QPolygon triangle(points);
         painter.drawPolygon(triangle);
+    }
 
+    // Draw expos
+    for (int i=0;i<draw_expos.size();i++)
+    {
+        int x1 = dtt[i].getP1().getX();
+        int y1 = dtt[i].getP1().getY();
+        int x2 = dtt[i].getP2().getX();
+        int y2 = dtt[i].getP2().getY();
+        int x3 = dtt[i].getP3().getX();
+        int y3 = dtt[i].getP3().getY();
+
+        painter.setBrush(draw_expos[i]);
+
+        QVector<QPoint> points;
+        points.push_back(QPoint(x1,y1));
+        points.push_back(QPoint(x2,y2));
+        points.push_back(QPoint(x3,y3));
+
+        QPolygon triangle(points);
+        painter.drawPolygon(triangle);
     }
 
 }

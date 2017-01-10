@@ -20,3 +20,4 @@ public:
 };
 
 #endif // QPOINT3D_H
+

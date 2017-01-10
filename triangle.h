@@ -19,8 +19,10 @@ public:
         p1 = p1_;
         p2 = p2_;
         p3 = p3_;
-        slope = slope_;
-        exposition = exposition_;
+        analyzeSlope();
+        analyzeExposition();
+        //slope = slope_;
+        //exposition = exposition_;
 
     }
 
