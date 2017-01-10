@@ -72,7 +72,7 @@ int Algorithms::getDelauyPoint(Edge &e, std::vector<QPoint3D> points)
 
 std::vector<Edge> Algorithms::createDT(std::vector<QPoint3D> &points)
 {
-
+/* SIMON
     //Sort points by x
     std::list<Edge> ael;
     std::sort(points.begin(),points.end(),sortByXAsc());
@@ -155,7 +155,28 @@ std::vector<Edge> Algorithms::createDT(std::vector<QPoint3D> &points)
             }
         }
     }
+*/
+    // TESTING
+    Edge et1(QPoint3D(0,0,0),QPoint3D(0,300,0));
+    Edge et2(QPoint3D(0,300,0),QPoint3D(300,300,0));
+    Edge et3(QPoint3D(300,300,0),QPoint3D(300,0,0));
+    Edge et4(QPoint3D(300,0,0),QPoint3D(0,0,0));
+    Edge et5(QPoint3D(0,0,0),QPoint3D(150,150,100));
+    Edge et6(QPoint3D(150,150,100),QPoint3D(300,300,0));
+    Edge et7(QPoint3D(300,0,0),QPoint3D(150,150,100));
+    Edge et8(QPoint3D(150,150,100),QPoint3D(0,300,0));
 
+    std::vector<Edge> dt;
+    dt.clear();
+    dt.push_back(et1);
+    dt.push_back(et2);
+    dt.push_back(et3);
+    dt.push_back(et4);
+    dt.push_back(et5);
+    dt.push_back(et6);
+    dt.push_back(et7);
+    dt.push_back(et8);
+    return dt;
 }
 
 std::vector<Edge> Algorithms::createContours(const std::vector<Edge> &dt, const double z_min, const double z_max, const double dz)
@@ -199,6 +220,8 @@ std::vector<Edge> Algorithms::createContours(const std::vector<Edge> &dt, const 
             }
         }
     }
+
+    return contours;
 }
 
 QPoint3D Algorithms::contourPoint(QPoint3D &p1, QPoint3D &p2, double z)
