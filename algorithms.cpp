@@ -1,4 +1,5 @@
 #include "algorithms.h"
+#include <QDebug>
 
 Algorithms::Algorithms()
 {
@@ -22,7 +23,7 @@ std::vector<Triangle> Algorithms::convertDT(std::vector<Edge> &dt)
     return dtt;
 }
 
-double Algorithms::getCircleRadius(QPoint3D &p1, QPoint3D &p2, QPoint3D &p3)
+double Algorithms::getCircleRadius(QPoint3D &p1, QPoint3D &p2, QPoint3D &p3, QPoint3D &cc)
 {
     const double x1 = p1.x();
     const double x2 = p2.x();
@@ -48,31 +49,62 @@ double Algorithms::getCircleRadius(QPoint3D &p1, QPoint3D &p2, QPoint3D &p3)
     const double n = 0.5*((k1*(-k9)+k2*k8+k3*(-k7))/(y1*(-k9)+y2*k8+y3*(-k7)));
     const double r = sqrt((x1-m)*(x1-m)+(y1-n)*(y1-n));
 
+    QPoint3D ccc(m,n,0);
+    cc=ccc;
     return r;
 }
 
 int Algorithms::getDelauyPoint(Edge &e, std::vector<QPoint3D> points)
 {
-    double r_max = 0;
-    int i_max = -1;
+    double r_min = 9e15;
+    int i_min = -1;
+    bool outside = true;
+
+    QPoint3D cc;
 
     for (int i=0;i<points.size();i++)
     {
         if (getPointLinePosition(points[i],e.start,e.end)==1)
         {
-            double r = getCircleRadius(points[i],e.start,e.end);
-            if (r>r_max)
+            double r = getCircleRadius(points[i],e.start,e.end,cc);
+            if (r<r_min)
             {
-                r_max = r;
-                i_max = i;
+
+                for (int j=0;j<points.size();j++)
+                {
+                    if(i!=j && e.start != points[j] && e.end != points[j])
+                    {
+                        if (sqrt((cc.x() - points[j].x())*(cc.x() - points[j].x()) + (cc.y() - points[j].y())*(cc.y() - points[j].y())) < r)
+                        {
+                            outside = false;
+                            break;
+                        }
+                    }
+                }
+                if(outside)
+                {
+                    r_min = r;
+                    i_min = i;
+                }
+                outside = true;
+
             }
         }
     }
+
+    return i_min;
 }
 
 std::vector<Edge> Algorithms::createDT(std::vector<QPoint3D> &points)
 {
-/* SIMON
+    //testing:
+//    points.clear();
+//    for (int i=0;i<20;i++)
+//    {
+//        QPoint3D p(qrand() % 500 + 10, qrand() % 500 + 10,0);
+//        points.push_back(p);
+//    }
+
     //Sort points by x
     std::list<Edge> ael;
     std::sort(points.begin(),points.end(),sortByXAsc());
@@ -112,6 +144,8 @@ std::vector<Edge> Algorithms::createDT(std::vector<QPoint3D> &points)
     while(!ael.empty())
     {
 
+        qDebug() << ael.size();
+
         //Remove the first edge
         Edge e = ael.front();
         ael.pop_front();
@@ -127,6 +161,8 @@ std::vector<Edge> Algorithms::createDT(std::vector<QPoint3D> &points)
             //Create new edges
             Edge e4(e.end,points[d_ind]);
             Edge e5(points[d_ind],e.start);
+
+
 
             //Add points to edge
             dt.push_back(e);
@@ -147,15 +183,23 @@ std::vector<Edge> Algorithms::createDT(std::vector<QPoint3D> &points)
                 e4.switchOrientation();
                 ael.push_back(e4);
             }
+            else
+            {
+                ael.remove(*ie4);
+            }
 
             if (ie5 == ael.end())
             {
                 e5.switchOrientation();
                 ael.push_back(e5);
             }
+            else
+            {
+                ael.remove(*ie5);
+            }
         }
     }
-*/
+/*
     // TESTING
     Edge et1(QPoint3D(0,0,0),QPoint3D(0,300,0));
     Edge et2(QPoint3D(0,300,0),QPoint3D(300,300,0));
@@ -176,6 +220,11 @@ std::vector<Edge> Algorithms::createDT(std::vector<QPoint3D> &points)
     dt.push_back(et6);
     dt.push_back(et7);
     dt.push_back(et8);
+
+
+    */
+
+
     return dt;
 }
 

@@ -11,7 +11,7 @@ class Algorithms
 public:
     Algorithms();
 
-    static double getCircleRadius(QPoint3D &p1, QPoint3D &p2, QPoint3D &p3);
+    static double getCircleRadius(QPoint3D &p1, QPoint3D &p2, QPoint3D &p3, QPoint3D &cc);
 
     static int getDelauyPoint(Edge &e, std::vector<QPoint3D> points);
 
