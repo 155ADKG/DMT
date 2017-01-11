@@ -262,6 +262,45 @@ std::vector<Edge> Algorithms::createContours(const std::vector<Edge> &dt, const 
                 if (b31)
                     contours.push_back(dt[i+2]);
             }
+            //Case 3: 1 vertex is in the horizontal plane
+            if (abs(dz1)<eps || abs(dz2)<eps || abs(dz3)<eps)
+            {
+                if (abs(dz1)<eps && dz2*dz3<0)
+                {
+                    Edge ec(p1,contourPoint(p2,p3,z));
+                    contours.push_back(ec);
+                }
+                if (abs(dz2)<eps && dz1*dz3<0)
+                {
+                    Edge ec(p2,contourPoint(p1,p3,z));
+                    contours.push_back(ec);
+                }
+                if (abs(dz3)<eps && dz2*dz1<0)
+                {
+                    Edge ec(p3,contourPoint(p2,p1,z));
+                    contours.push_back(ec);
+                }
+            }
+
+            //Case 4: triangle cross the horizontal plane
+            if ((dz2*dz1<0 && dz1*dz3<0) || (dz2*dz1<0 && dz2*dz3<0) || (dz1*dz3<0 && dz2*dz3<0))
+            {
+                if (dz2*dz3>=0)
+                {
+                    Edge ec(contourPoint(p2,p1,z),contourPoint(p3,p1,z));
+                    contours.push_back(ec);
+                }
+                if (dz2*dz1>=0)
+                {
+                    Edge ec(contourPoint(p2,p3,z),contourPoint(p3,p1,z));
+                    contours.push_back(ec);
+                }
+                if (dz1*dz3>=0)
+                {
+                    Edge ec(contourPoint(p2,p1,z),contourPoint(p3,p2,z));
+                    contours.push_back(ec);
+                }
+            }
         }
     }
 

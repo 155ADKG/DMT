@@ -44,6 +44,7 @@ void Draw::paintEvent(QPaintEvent *e)
         qDebug() << x1 << ' - ' << y1;
         qDebug() << x2 << ' - ' << y2;
 
+        painter.setPen(QPen(Qt::magenta,2));
         painter.drawLine(QPoint(x1, y1), QPoint(x2, y2));
     }
 

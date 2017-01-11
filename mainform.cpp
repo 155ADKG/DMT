@@ -111,7 +111,7 @@ void MainForm::on_pushLoad_clicked()
 
 void MainForm::on_pushGenCont_clicked()
 {
-    contours = Algorithms::createContours(dt,0.1, 200.0, 0.1);
+    contours = Algorithms::createContours(dt,0.1, 1000.0, 5);
 
     ui->Canvas->setContours(contours);
 
