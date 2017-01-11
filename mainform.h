@@ -18,8 +18,11 @@ private:
     std::vector<Edge> dt;
     std::vector<Triangle> dtt;
     std::vector<Edge> contours;
+    std::vector<Edge> mainContours;
     std::vector<double> draw_slope;
-    std::vector<QColor> draw_expos;
+    std::vector<QColor> draw_expos;    
+    float z_min;
+    float z_max;
 
 public:
     explicit MainForm(QWidget *parent = 0);

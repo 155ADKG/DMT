@@ -13,6 +13,7 @@ class Draw : public QWidget
 
 private:
     std::vector<Edge> contours;
+    std::vector<Edge> mainContours;
     std::vector<Triangle> dtt;
     std::vector<QPoint3D> points;
     std::vector<double> draw_slope;
@@ -22,6 +23,7 @@ public:
     explicit Draw(QWidget *parent = 0);
 
     void setContours(const std::vector<Edge> &contours_){contours = contours_;}
+    void setMainContours(const std::vector<Edge> &main_contours_){ mainContours = main_contours_; }
     void setTriangle(const std::vector<Triangle> &dtt_){dtt = dtt_;}
     void setLoadPoints(std::vector<QPoint3D> points_){ points = points_; }
     void setDrawSlope(std::vector<double> draw_slope_){ draw_slope = draw_slope_; }

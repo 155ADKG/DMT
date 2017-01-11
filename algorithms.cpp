@@ -143,9 +143,6 @@ std::vector<Edge> Algorithms::createDT(std::vector<QPoint3D> &points)
     //Proces ael until is empty
     while(!ael.empty())
     {
-
-        qDebug() << ael.size();
-
         //Remove the first edge
         Edge e = ael.front();
         ael.pop_front();

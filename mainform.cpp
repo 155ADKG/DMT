@@ -37,10 +37,12 @@ void MainForm::on_pushLoad_clicked()
     // Clear vectors and Canvas
     points.clear();
     contours.clear();
+    mainContours.clear();
     draw_slope.clear();
     draw_expos.clear();    
 
     ui->Canvas->setContours(contours);
+    ui->Canvas->setMainContours(mainContours);
     ui->Canvas->setLoadPoints(points);
     ui->Canvas->setDrawSlope(draw_slope);
     ui->Canvas->setDrawExpos(draw_expos);
@@ -51,6 +53,8 @@ void MainForm::on_pushLoad_clicked()
 
     QPoint3D p;
     int lvl = 0;
+    z_max = 0;
+    z_min = 1603;
 
     while (!xml.atEnd())
     {
@@ -70,6 +74,11 @@ void MainForm::on_pushLoad_clicked()
                             p.setY(it->value().toString().toFloat());
                         }else if (it->name().toString() == "z"){
                             p.setZ(it->value().toString().toFloat());
+                            if(it->value().toString().toFloat() > z_max){
+                                z_max = it->value().toString().toFloat();
+                            }else if(it->value().toString().toFloat() < z_min){
+                                z_min = it->value().toString().toFloat();
+                            }
                         }
                     }
                     points.push_back(p);
@@ -89,16 +98,6 @@ void MainForm::on_pushLoad_clicked()
     dt = Algorithms::createDT(points);
     dtt = Algorithms::convertDT(dt);
 
-    qDebug() << "===SLOPE===";
-    qDebug() << dtt[0].getSlope();
-    qDebug() << dtt[1].getSlope();
-    qDebug() << dtt[2].getSlope();
-
-    qDebug() << "===EXPOSITION===";
-    qDebug() << dtt[0].getExposition();
-    qDebug() << dtt[1].getExposition();
-    qDebug() << dtt[2].getExposition();
-
     ui->Canvas->setTriangle(dtt);
 
     repaint();
@@ -116,18 +115,36 @@ void MainForm::on_pushGenCont_clicked()
     // Clear label
     ui->labelErr->clear();
 
-    // Check int value
+    // Check interval value
     QString text = ui->interval->text();
     bool check_int;
-    int value = text.toInt(&check_int);
-    if(!check_int){value=0; ui->labelErr->setText("<font color='red'>Error value in interval of contours.</font>");}
+    int interval = text.toInt(&check_int);
+    if(!check_int || interval < 1)
+    {
+        ui->labelErr->setText("<font color='red'>Error value in interval of contours. Interval must be a integer.</font>");
+    }
+    else
+    {
+        // Check main contours value
+        QString text_m = ui->mainInterval->text();
+        bool check_int_m;
+        int interval_m = text_m.toInt(&check_int_m);
+        if(!check_int_m || interval_m < 1)
+        {
+            ui->labelErr->setText("<font color='red'>Error value in interval of main contours. Interval must be a integer.</font>");
+        }else
+        {
+            mainContours = Algorithms::createContours(dt, z_min, z_max, interval*interval_m);
+            ui->Canvas->setMainContours(mainContours);
+        }
 
+        // Contours
+        contours = Algorithms::createContours(dt, z_min, z_max, interval);
 
-    contours = Algorithms::createContours(dt,0.1, 1000.0, 5);
+        ui->Canvas->setContours(contours);
 
-    ui->Canvas->setContours(contours);
-
-    repaint();
+        repaint();
+    }
 }
 
 void MainForm::on_pushSlope_clicked()
@@ -187,8 +204,10 @@ void MainForm::on_pushCleanCont_clicked()
 {
     // Clear vector and Canvas
     contours.clear();
+    mainContours.clear();
 
     ui->Canvas->setContours(contours);
+    ui->Canvas->setMainContours(mainContours);
     ui->labelErr->clear();
 
     repaint();
@@ -198,10 +217,12 @@ void MainForm::on_pushClear_clicked()
 {
     // Clear vectors and Canvas
     contours.clear();
+    mainContours.clear();
     draw_slope.clear();
     draw_expos.clear();
 
     ui->Canvas->setContours(contours);
+    ui->Canvas->setMainContours(mainContours);
     ui->Canvas->setDrawSlope(draw_slope);
     ui->Canvas->setDrawExpos(draw_expos);
     ui->labelErr->clear();

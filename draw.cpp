@@ -86,4 +86,15 @@ void Draw::paintEvent(QPaintEvent *e)
         painter.drawLine(QPoint(x1, y1), QPoint(x2, y2));
     }
 
+    // Draw main contours
+    for (int i=0;i<mainContours.size();i++)
+    {
+        int x1 = mainContours[i].start.getX();
+        int y1 = mainContours[i].start.getY();
+        int x2 = mainContours[i].end.getX();
+        int y2 = mainContours[i].end.getY();
+
+        painter.setPen(QPen(Qt::red,3));
+        painter.drawLine(QPoint(x1, y1), QPoint(x2, y2));
+    }
 }
