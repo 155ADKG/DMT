@@ -82,7 +82,7 @@ void Draw::paintEvent(QPaintEvent *e)
         int x2 = contours[i].end.getX();
         int y2 = contours[i].end.getY();
 
-        painter.setPen(QPen(Qt::magenta,2));
+        painter.setPen(QPen(Qt::darkRed,2));
         painter.drawLine(QPoint(x1, y1), QPoint(x2, y2));
     }
 
@@ -94,7 +94,7 @@ void Draw::paintEvent(QPaintEvent *e)
         int x2 = mainContours[i].end.getX();
         int y2 = mainContours[i].end.getY();
 
-        painter.setPen(QPen(Qt::red,3));
+        painter.setPen(QPen(Qt::darkRed,3));
         painter.drawLine(QPoint(x1, y1), QPoint(x2, y2));
     }
 }
