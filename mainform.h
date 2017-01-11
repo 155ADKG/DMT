@@ -34,6 +34,10 @@ private slots:
 
     void on_pushAspect_clicked();
 
+    void on_pushCleanCont_clicked();
+
+    void on_pushClear_clicked();
+
 private:
     Ui::MainForm *ui;
 };
