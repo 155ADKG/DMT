@@ -63,11 +63,11 @@ void MainForm::on_pushLoad_clicked()
                     for(QXmlStreamAttributes::Iterator it=attr.begin(); it < attr.end(); it++)
                     {
                         if(it->name().toString() == "x"){
-                            p.setX(it->value().toString().toInt());
+                            p.setX(it->value().toString().toFloat());
                         }else if (it->name().toString() == "y"){
-                            p.setY(it->value().toString().toInt());
+                            p.setY(it->value().toString().toFloat());
                         }else if (it->name().toString() == "z"){
-                            p.setZ(it->value().toString().toInt());
+                            p.setZ(it->value().toString().toFloat());
                         }
                     }
                     points.push_back(p);

@@ -99,9 +99,9 @@ std::vector<Edge> Algorithms::createDT(std::vector<QPoint3D> &points)
 {
     //testing:
 //    points.clear();
-//    for (int i=0;i<20;i++)
+//    for (int i=0;i<300;i++)
 //    {
-//        QPoint3D p(qrand() % 500 + 10, qrand() % 500 + 10,0);
+//        QPoint3D p((qrand() % 2000 + 10)/3.f, (qrand() % 2000 + 10)/3.f,0);
 //        points.push_back(p);
 //    }
 

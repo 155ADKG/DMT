@@ -2,17 +2,17 @@
 #define QPOINT3D_H
 #include <QtGui>
 
-class QPoint3D:public QPoint
+class QPoint3D:public QPointF
 {
 private:
-    int z;
+    float z;
 public:
-    QPoint3D(int x_, int y_, int z_): QPoint(x_,y_),z(z_){}
-    QPoint3D(): QPoint(), z(0) {}
+    QPoint3D(float x_, float y_, float z_): QPointF(x_,y_),z(z_){}
+    QPoint3D(): QPointF(), z(0) {}
 
 //  void setX(int x_){this->setX(x_);}
 //  void setY(int y_){this->setY(y_);}
-    void setZ(int z_){z=z_;}
+    void setZ(float z_){z=z_;}
     int getX(){return this->x();}
     int getY(){return this->y();}
     int getZ(){return z;}
