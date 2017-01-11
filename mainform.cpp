@@ -129,14 +129,6 @@ void MainForm::on_pushSlope_clicked()
 
     for (int i=0;i<dtt.size();i++)
     {
-
-        int x1 = dtt[i].getP1().getX();
-        int y1 = dtt[i].getP1().getY();
-        int x2 = dtt[i].getP2().getX();
-        int y2 = dtt[i].getP2().getY();
-        int x3 = dtt[i].getP3().getX();
-        int y3 = dtt[i].getP3().getY();
-
         double gray = round(fabs(dtt[i].getSlope() / 180) * 255);
 
         draw_slope.push_back(gray);
@@ -158,13 +150,6 @@ void MainForm::on_pushAspect_clicked()
 
     for (int i=0;i<dtt.size();i++)
     {
-
-        int x1 = dtt[i].getP1().getX();
-        int y1 = dtt[i].getP1().getY();
-        int x2 = dtt[i].getP2().getX();
-        int y2 = dtt[i].getP2().getY();
-        int x3 = dtt[i].getP3().getX();
-        int y3 = dtt[i].getP3().getY();
 
         double asp = dtt[i].getExposition()+180;
 
