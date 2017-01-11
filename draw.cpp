@@ -10,6 +10,7 @@ void Draw::paintEvent(QPaintEvent *e)
     const unsigned int r = 4;
     QPainter painter(this);
     painter.begin(this);
+    painter.setPen(QPen(Qt::black,1));
 
     // Draw points from XML file
     for(int i=0; i<points.size(); i++){
@@ -30,23 +31,6 @@ void Draw::paintEvent(QPaintEvent *e)
         painter.drawLine(QPoint(x1, y1), QPoint(x3, y3));
         painter.drawLine(QPoint(x3, y3), QPoint(x2, y2));
     }    
-
-    // Draw contours
-    for (int i=0;i<contours.size();i++)
-    {
-        int x1 = contours[i].start.getX();
-        int y1 = contours[i].start.getY();
-        int x2 = contours[i].end.getX();
-        int y2 = contours[i].end.getY();
-
-        qDebug() << contours[i].start;
-        qDebug() << contours[i].end;
-        qDebug() << x1 << ' - ' << y1;
-        qDebug() << x2 << ' - ' << y2;
-
-        painter.setPen(QPen(Qt::magenta,2));
-        painter.drawLine(QPoint(x1, y1), QPoint(x2, y2));
-    }
 
     // Draw slope
     for (int i=0;i<draw_slope.size();i++)
@@ -88,6 +72,18 @@ void Draw::paintEvent(QPaintEvent *e)
 
         QPolygon triangle(points);
         painter.drawPolygon(triangle);
+    }
+
+    // Draw contours
+    for (int i=0;i<contours.size();i++)
+    {
+        int x1 = contours[i].start.getX();
+        int y1 = contours[i].start.getY();
+        int x2 = contours[i].end.getX();
+        int y2 = contours[i].end.getY();
+
+        painter.setPen(QPen(Qt::magenta,2));
+        painter.drawLine(QPoint(x1, y1), QPoint(x2, y2));
     }
 
 }

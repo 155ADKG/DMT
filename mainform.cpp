@@ -36,9 +36,11 @@ void MainForm::on_pushLoad_clicked()
 
     // Clear vectors and Canvas
     points.clear();
+    contours.clear();
     draw_slope.clear();
-    draw_expos.clear();
+    draw_expos.clear();    
 
+    ui->Canvas->setContours(contours);
     ui->Canvas->setLoadPoints(points);
     ui->Canvas->setDrawSlope(draw_slope);
     ui->Canvas->setDrawExpos(draw_expos);
@@ -111,6 +113,16 @@ void MainForm::on_pushLoad_clicked()
 
 void MainForm::on_pushGenCont_clicked()
 {
+    // Clear label
+    ui->labelErr->clear();
+
+    // Check int value
+    QString text = ui->interval->text();
+    bool check_int;
+    int value = text.toInt(&check_int);
+    if(!check_int){value=0; ui->labelErr->setText("<font color='red'>Error value in interval of contours.</font>");}
+
+
     contours = Algorithms::createContours(dt,0.1, 1000.0, 5);
 
     ui->Canvas->setContours(contours);
@@ -126,6 +138,7 @@ void MainForm::on_pushSlope_clicked()
 
     ui->Canvas->setDrawSlope(draw_slope);
     ui->Canvas->setDrawExpos(draw_expos);
+    ui->labelErr->clear();
 
     for (int i=0;i<dtt.size();i++)
     {
@@ -147,6 +160,7 @@ void MainForm::on_pushAspect_clicked()
 
     ui->Canvas->setDrawSlope(draw_slope);
     ui->Canvas->setDrawExpos(draw_expos);
+    ui->labelErr->clear();
 
     for (int i=0;i<dtt.size();i++)
     {
@@ -165,6 +179,32 @@ void MainForm::on_pushAspect_clicked()
     }
 
     ui->Canvas->setDrawExpos(draw_expos);
+
+    repaint();
+}
+
+void MainForm::on_pushCleanCont_clicked()
+{
+    // Clear vector and Canvas
+    contours.clear();
+
+    ui->Canvas->setContours(contours);
+    ui->labelErr->clear();
+
+    repaint();
+}
+
+void MainForm::on_pushClear_clicked()
+{
+    // Clear vectors and Canvas
+    contours.clear();
+    draw_slope.clear();
+    draw_expos.clear();
+
+    ui->Canvas->setContours(contours);
+    ui->Canvas->setDrawSlope(draw_slope);
+    ui->Canvas->setDrawExpos(draw_expos);
+    ui->labelErr->clear();
 
     repaint();
 }
