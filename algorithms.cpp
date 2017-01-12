@@ -9,13 +9,13 @@ std::vector<Triangle> Algorithms::convertDT(std::vector<Edge> &dt)
 {
     std::vector<Triangle> dtt;
 
-    for (int i=0;i<dt.size();i+=3)
+    for (unsigned int i=0;i<dt.size();i+=3)
     {
         QPoint3D p1 = dt[i].start;
         QPoint3D p2 = dt[i].end;
         QPoint3D p3 = dt[i+1].end;
 
-        Triangle t(p1,p2,p3,0,0);
+        Triangle t(p1,p2,p3);
 
         dtt.push_back(t);
     }
@@ -62,7 +62,7 @@ int Algorithms::getDelauyPoint(Edge &e, std::vector<QPoint3D> points)
 
     QPoint3D cc;
 
-    for (int i=0;i<points.size();i++)
+    for (unsigned int i=0;i<points.size();i++)
     {
         if (getPointLinePosition(points[i],e.start,e.end)==1)
         {
@@ -70,7 +70,7 @@ int Algorithms::getDelauyPoint(Edge &e, std::vector<QPoint3D> points)
             if (r<r_min)
             {
 
-                for (int j=0;j<points.size();j++)
+                for (unsigned int j=0;j<points.size();j++)
                 {
                     if(i!=j && e.start != points[j] && e.end != points[j])
                     {
@@ -196,25 +196,7 @@ std::vector<Edge> Algorithms::createDT(std::vector<QPoint3D> &points)
             }
         }
     }
-/*
-    // TESTING
-    Edge et1(QPoint3D(0,0,0),QPoint3D(0,100,0));
-    Edge et2(QPoint3D(0,100,0),QPoint3D(100,100,10));
-    Edge et3(QPoint3D(100,100,10),QPoint3D(0,0,0));
 
-    Edge et4(QPoint3D(200,200,0),QPoint3D(200,300,150));
-    Edge et5(QPoint3D(200,300,150),QPoint3D(300,300,0));
-    Edge et6(QPoint3D(300,300,0),QPoint3D(200,200,0));
-
-    std::vector<Edge> dt;
-    dt.clear();
-    dt.push_back(et1);
-    dt.push_back(et2);
-    dt.push_back(et3);
-    dt.push_back(et4);
-    dt.push_back(et5);
-    dt.push_back(et6);
-*/
 
     return dt;
 }
@@ -227,7 +209,7 @@ std::vector<Edge> Algorithms::createContours(const std::vector<Edge> &dt, const 
     contours.clear();
 
     //Process a triplet of edges
-    for (int i=0;i<dt.size()-2;i+=3)
+    for (unsigned int i=0;i<dt.size()-2;i+=3)
     {
 
         //Get triangle of vertices
@@ -324,7 +306,7 @@ int Algorithms::getNearestPoint(const QPoint3D &p, std::vector<QPoint3D> points)
 {
     int i_min = -1;
     double d_min = 9e10;
-    for (int i=0;i<points.size();i++)
+    for (unsigned int i=0;i<points.size();i++)
     {
         if (p != points[i])
         {

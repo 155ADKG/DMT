@@ -121,8 +121,5 @@ void Draw::paintEvent(QPaintEvent *e)
             conmain.push_back(zet);
         }
 
-
-qDebug()<< conmain.size();
-
     }
 }

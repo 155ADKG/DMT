@@ -157,7 +157,7 @@ void MainForm::on_pushSlope_clicked()
     ui->Canvas->setDrawExpos(draw_expos);
     ui->labelErr->clear();
 
-    for (int i=0;i<dtt.size();i++)
+    for (unsigned int i=0;i<dtt.size();i++)
     {
         double gray = round(fabs(dtt[i].getSlope() / 180) * 255);
 
@@ -179,7 +179,7 @@ void MainForm::on_pushAspect_clicked()
     ui->Canvas->setDrawExpos(draw_expos);
     ui->labelErr->clear();
 
-    for (int i=0;i<dtt.size();i++)
+    for (unsigned int i=0;i<dtt.size();i++)
     {
 
         double asp = dtt[i].getExposition()+180;
