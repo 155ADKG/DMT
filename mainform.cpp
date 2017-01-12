@@ -53,8 +53,8 @@ void MainForm::on_pushLoad_clicked()
 
     QPoint3D p;
     int lvl = 0;
-    z_max = 0;
-    z_min = 1603;
+    z_max = 1603;
+    z_min = 0;
 
     while (!xml.atEnd())
     {

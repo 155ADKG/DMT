@@ -316,7 +316,7 @@ QPoint3D Algorithms::contourPoint(QPoint3D &p1, QPoint3D &p2, double z)
     double xa = (((p2.x() - p1.x())/(p2.getZ() - p1.getZ()))*(z - p1.getZ()))+p1.x();
     double ya = (((p2.y() - p1.y())/(p2.getZ() - p1.getZ()))*(z - p1.getZ()))+p1.y();
 
-    QPoint3D p(xa,ya,0);
+    QPoint3D p(xa,ya,z);
     return p;
 }
 

@@ -1,4 +1,5 @@
 #include "draw.h"
+#include <QDebug>
 
 Draw::Draw(QWidget *parent) :
     QWidget(parent)
@@ -82,19 +83,46 @@ void Draw::paintEvent(QPaintEvent *e)
         int x2 = contours[i].end.getX();
         int y2 = contours[i].end.getY();
 
-        painter.setPen(QPen(Qt::darkRed,2));
+        painter.setPen(QPen(Qt::darkRed,1));
         painter.drawLine(QPoint(x1, y1), QPoint(x2, y2));
     }
 
     // Draw main contours
+    //if (!mainContours.empty()){
+//    int zet=-1;
+//    int k=0;
+    std::vector<int> conmain;
+    if (!mainContours.empty()){
+    conmain.push_back(mainContours[0].start.getZ());
+    painter.setFont(QFont("Arial",18,QFont::Bold));
+    painter.setPen(QPen(Qt::darkGreen));
+    painter.drawText(mainContours[0].start.getX(), mainContours[0].start.getY(), QString::number(mainContours[0].start.getZ()));
+    }
     for (int i=0;i<mainContours.size();i++)
     {
+        int zet = mainContours[i].start.getZ();
+
+
+
         int x1 = mainContours[i].start.getX();
         int y1 = mainContours[i].start.getY();
         int x2 = mainContours[i].end.getX();
         int y2 = mainContours[i].end.getY();
 
-        painter.setPen(QPen(Qt::darkRed,4));
+        painter.setPen(QPen(Qt::darkRed,3));
         painter.drawLine(QPoint(x1, y1), QPoint(x2, y2));
+
+        std::vector<int>::iterator icon = std::find(conmain.begin(),conmain.end(),zet);
+        if(icon == conmain.end())
+        {
+            painter.setFont(QFont("Arial",18,QFont::Bold));
+            painter.setPen(QPen(Qt::darkGreen));
+            painter.drawText(x1, y1, QString::number(zet));
+            conmain.push_back(zet);
+        }
+
+
+qDebug()<< conmain.size();
+
     }
 }
