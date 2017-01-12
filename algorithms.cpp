@@ -241,9 +241,9 @@ std::vector<Edge> Algorithms::createContours(const std::vector<Edge> &dt, const 
             double dz2 = z - p2.getZ();
             double dz3 = z - p3.getZ();
 
-            bool b12 = (abs(dz1) < eps) && (abs(dz2) < eps);
-            bool b23 = (abs(dz2) < eps) && (abs(dz3) < eps);
-            bool b31 = (abs(dz3) < eps) && (abs(dz1) < eps);
+            bool b12 = (fabs(dz1) < eps) && (fabs(dz2) < eps);
+            bool b23 = (fabs(dz2) < eps) && (fabs(dz3) < eps);
+            bool b31 = (fabs(dz3) < eps) && (fabs(dz1) < eps);
 
             //Case 1: Triangle coplanar with the horizontal plane
             if (b12 && b23 && b31)
@@ -253,46 +253,53 @@ std::vector<Edge> Algorithms::createContours(const std::vector<Edge> &dt, const 
             if (b12 || b23 || b31)
             {
                 if (b12)
+                {
                     contours.push_back(dt[i]);
+                }
                 if (b23)
+                {
                     contours.push_back(dt[i+1]);
+                }
                 if (b31)
+                {
                     contours.push_back(dt[i+2]);
+                }
             }
             //Case 3: 1 vertex is in the horizontal plane
-            if (abs(dz1)<eps || abs(dz2)<eps || abs(dz3)<eps)
+            if (fabs(dz1)<eps || fabs(dz2)<eps || fabs(dz3)<eps)
             {
-                if (abs(dz1)<eps && dz2*dz3<0)
+                if (fabs(dz1)<eps && dz2*dz3<0)
                 {
                     Edge ec(p1,contourPoint(p2,p3,z));
                     contours.push_back(ec);
                 }
-                if (abs(dz2)<eps && dz1*dz3<0)
+                if (fabs(dz2)<eps && dz1*dz3<0)
                 {
                     Edge ec(p2,contourPoint(p1,p3,z));
                     contours.push_back(ec);
                 }
-                if (abs(dz3)<eps && dz2*dz1<0)
+                if (fabs(dz3)<eps && dz2*dz1<0)
                 {
                     Edge ec(p3,contourPoint(p2,p1,z));
                     contours.push_back(ec);
                 }
+
             }
 
             //Case 4: triangle cross the horizontal plane
-            if ((dz2*dz1<0 && dz1*dz3<0) || (dz2*dz1<0 && dz2*dz3<0) || (dz1*dz3<0 && dz2*dz3<0))
+            if (dz2*dz1<0 || dz1*dz3<0 || dz2*dz3<0)
             {
-                if (dz2*dz3>=0)
+                if (dz2*dz1<0 && dz1*dz3<0)
                 {
                     Edge ec(contourPoint(p2,p1,z),contourPoint(p3,p1,z));
                     contours.push_back(ec);
                 }
-                if (dz2*dz1>=0)
+                if (dz1*dz3<0 && dz2*dz3<0)
                 {
                     Edge ec(contourPoint(p2,p3,z),contourPoint(p3,p1,z));
                     contours.push_back(ec);
                 }
-                if (dz1*dz3>=0)
+                if (dz2*dz1<0 && dz2*dz3<0)
                 {
                     Edge ec(contourPoint(p2,p1,z),contourPoint(p3,p2,z));
                     contours.push_back(ec);
