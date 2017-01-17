@@ -7,6 +7,7 @@
 #include "triangle.h"
 #include <QtGui>
 
+
 class Draw : public QWidget
 {
     Q_OBJECT

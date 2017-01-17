@@ -96,13 +96,22 @@ void Draw::paintEvent(QPaintEvent *e)
     conmain.push_back(mainContours[0].start.getZ());
     painter.setFont(QFont("Arial",18,QFont::Bold));
     painter.setPen(QPen(Qt::darkGreen));
+    QTransform trans;
+    trans.translate(mainContours[0].start.getX(), mainContours[0].start.getY());
+    trans.rotateRadians(atan2(mainContours[0].end.getY()-mainContours[0].start.getY(),mainContours[0].end.getX()-mainContours[0].start.getX()));
+    trans.translate(-mainContours[0].start.getX(), -mainContours[0].start.getY());
+    painter.setWorldTransform(trans);
     painter.drawText(mainContours[0].start.getX(), mainContours[0].start.getY(), QString::number(mainContours[0].start.getZ()));
+    trans.translate(mainContours[0].start.getX(), mainContours[0].start.getY());
+    trans.rotateRadians(-atan2(mainContours[0].end.getY()-mainContours[0].start.getY(),mainContours[0].end.getX()-mainContours[0].start.getX()));
+    trans.translate(-mainContours[0].start.getX(), -mainContours[0].start.getY());
+    painter.setWorldTransform(trans);
     }
     for (int i=0;i<mainContours.size();i++)
     {
         int zet = mainContours[i].start.getZ();
 
-
+        QTransform trans;
 
         int x1 = mainContours[i].start.getX();
         int y1 = mainContours[i].start.getY();
@@ -115,9 +124,19 @@ void Draw::paintEvent(QPaintEvent *e)
         std::vector<int>::iterator icon = std::find(conmain.begin(),conmain.end(),zet);
         if(icon == conmain.end())
         {
+
             painter.setFont(QFont("Arial",18,QFont::Bold));
             painter.setPen(QPen(Qt::darkGreen));
+
+            trans.translate(mainContours[i].start.getX(), mainContours[i].start.getY());
+            trans.rotateRadians(atan2(mainContours[i].end.getY()-mainContours[i].start.getY(),mainContours[i].end.getX()-mainContours[i].start.getX()));
+            trans.translate(-mainContours[i].start.getX(), -mainContours[i].start.getY());
+            painter.setWorldTransform(trans);
             painter.drawText(x1, y1, QString::number(zet));
+            trans.translate(mainContours[i].start.getX(), mainContours[i].start.getY());
+            trans.rotateRadians(-atan2(mainContours[i].end.getY()-mainContours[i].start.getY(),mainContours[i].end.getX()-mainContours[i].start.getX()));
+            trans.translate(-mainContours[i].start.getX(), -mainContours[i].start.getY());
+            painter.setWorldTransform(trans);
             conmain.push_back(zet);
         }
 

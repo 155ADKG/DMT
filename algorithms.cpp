@@ -5,6 +5,7 @@ Algorithms::Algorithms()
 {
 }
 
+
 std::vector<Triangle> Algorithms::convertDT(std::vector<Edge> &dt)
 {
     std::vector<Triangle> dtt;
