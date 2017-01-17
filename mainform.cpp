@@ -236,3 +236,13 @@ void MainForm::on_pushClear_clicked()
 
     repaint();
 }
+
+void MainForm::on_lineEditZMin_editingFinished()
+{
+    z_min = ui->lineEditZMin->text().toFloat();
+}
+
+void MainForm::on_lineEditZMax_editingFinished()
+{
+    z_max = ui->lineEditZMax->text().toFloat();
+}

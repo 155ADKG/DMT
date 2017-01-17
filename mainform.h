@@ -41,6 +41,10 @@ private slots:
 
     void on_pushClear_clicked();
 
+    void on_lineEditZMin_editingFinished();
+
+    void on_lineEditZMax_editingFinished();
+
 private:
     Ui::MainForm *ui;
 };
