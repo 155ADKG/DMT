@@ -159,7 +159,14 @@ void MainForm::on_pushSlope_clicked()
 
     for (unsigned int i=0;i<dtt.size();i++)
     {
-        double gray = round(fabs(dtt[i].getSlope() / 180) * 255);
+        double gray;
+        if (fabs(dtt[i].getSlope()) <= 135 && fabs(dtt[i].getSlope()) >= 45)
+            gray = 0;
+        if (fabs(dtt[i].getSlope()) < 45)
+            gray = round(1-(fabs(dtt[i].getSlope() / 45)) * 255);
+        else
+            gray = round((1-((180-fabs(dtt[i].getSlope())) / 45)) * 255);
+
 
         draw_slope.push_back(gray);
     }
