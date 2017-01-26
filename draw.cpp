@@ -14,12 +14,12 @@ void Draw::paintEvent(QPaintEvent *e)
     painter.setPen(QPen(Qt::black,1));
 
     // Draw points from XML file
-    for(int i=0; i<points.size(); i++){
+    for(unsigned int i=0; i<points.size(); i++){
         painter.drawEllipse(points[i].x()-r/2, points[i].y()-r/2, r, r);
     }
 
     // Draw TIN
-    for (int i=0;i<dtt.size();i++)
+    for (unsigned int i=0;i<dtt.size();i++)
     {
         int x1 = dtt[i].getP1().getX();
         int y1 = dtt[i].getP1().getY();
@@ -34,7 +34,7 @@ void Draw::paintEvent(QPaintEvent *e)
     }    
 
     // Draw slope
-    for (int i=0;i<draw_slope.size();i++)
+    for (unsigned int i=0;i<draw_slope.size();i++)
     {
         int x1 = dtt[i].getP1().getX();
         int y1 = dtt[i].getP1().getY();
@@ -55,7 +55,7 @@ void Draw::paintEvent(QPaintEvent *e)
     }
 
     // Draw expos
-    for (int i=0;i<draw_expos.size();i++)
+    for (unsigned int i=0;i<draw_expos.size();i++)
     {
         int x1 = dtt[i].getP1().getX();
         int y1 = dtt[i].getP1().getY();
@@ -76,7 +76,7 @@ void Draw::paintEvent(QPaintEvent *e)
     }
 
     // Draw contours
-    for (int i=0;i<contours.size();i++)
+    for (unsigned int i=0;i<contours.size();i++)
     {
         int x1 = contours[i].start.getX();
         int y1 = contours[i].start.getY();
@@ -107,7 +107,7 @@ void Draw::paintEvent(QPaintEvent *e)
     trans.translate(-mainContours[0].start.getX(), -mainContours[0].start.getY());
     painter.setWorldTransform(trans);
     }
-    for (int i=0;i<mainContours.size();i++)
+    for (unsigned int i=0;i<mainContours.size();i++)
     {
         int zet = mainContours[i].start.getZ();
 
